@@ -13,7 +13,37 @@ import java.util.List;
 public class ApiProyectoApplication {
 
     public static void main(String[] args) {
+        prepararMongoUri();
         SpringApplication.run(ApiProyectoApplication.class, args);
+    }
+
+    /**
+     * Lee MONGODB_URI, le quita espacios, comillas o un "MONGODB_URI=" pegado por error,
+     * y deja en el log un aviso claro (sin mostrar la contraseña).
+     */
+    static void prepararMongoUri() {
+        String uri = System.getenv("MONGODB_URI");
+        if (uri == null || uri.isBlank()) {
+            String parecidas = System.getenv().keySet().stream()
+                    .filter(k -> k.toUpperCase().contains("MONGO"))
+                    .map(k -> "'" + k + "'").reduce((a, b) -> a + ", " + b).orElse("ninguna");
+            System.err.println("[Reto Diario] FALTA la variable de entorno MONGODB_URI. " +
+                    "Variables parecidas encontradas: " + parecidas + ". Revisa el nombre exacto en tu hosting.");
+            return;
+        }
+        String limpia = uri.trim();
+        if (limpia.toUpperCase().startsWith("MONGODB_URI=")) limpia = limpia.substring(12).trim();
+        if ((limpia.startsWith("\"") && limpia.endsWith("\"")) || (limpia.startsWith("'") && limpia.endsWith("'")))
+            limpia = limpia.substring(1, limpia.length() - 1).trim();
+        if (!limpia.startsWith("mongodb://") && !limpia.startsWith("mongodb+srv://")) {
+            String inicio = limpia.length() > 12 ? limpia.substring(0, 12) : limpia;
+            System.err.println("[Reto Diario] MONGODB_URI no empieza por mongodb+srv:// (empieza por '" + inicio +
+                    "...', " + limpia.length() + " caracteres). Copia la cadena desde Atlas > Connect > Drivers.");
+        } else {
+            String oculta = limpia.replaceAll("://([^:@/]+):[^@]*@", "://$1:****@");
+            System.out.println("[Reto Diario] Conectando a MongoDB: " + oculta);
+        }
+        System.setProperty("spring.data.mongodb.uri", limpia);
     }
 
     // Si la colección "retos" está vacía, la llena con retos de ejemplo
