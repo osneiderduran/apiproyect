@@ -1,0 +1,5 @@
+# Solo para correr en tu PC (no se sube a GitHub)
+spring.data.mongodb.uri=PEGA_AQUI_TU_URI_DE_MONGO
+
+# Clave gratuita de Groq para que la IA genere preguntas nuevas (https://console.groq.com/keys)
+groq.api.key=PEGA_AQUI_TU_CLAVE_DE_GROQ
