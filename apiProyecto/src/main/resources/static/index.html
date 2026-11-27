@@ -1394,6 +1394,32 @@ html body #app .auth-screen .auth-mount svg{width:100%;height:100%}
   html body #app .auth-pad .auth-submit{min-height:48px;margin-top:11px}
   html body #app .auth-perks{display:none}
 }
+
+/* v38: juegos aprovechan toda la pantalla (las opciones crecen hasta un tope) */
+html body #app .scr:has(.play) .play{padding:12px 18px 0}
+html body #app .play h2{font-size:clamp(20px,5.8vw,24px);line-height:1.22;margin-top:10px}
+html body #app .play .sub{font-size:14px;margin-top:4px}
+html body #app .play .hint{margin-top:10px;padding:10px 12px;font-size:13.5px}
+html body #app .play .opt{flex:1 1 auto;min-height:56px;max-height:86px;margin-top:11px;padding:12px 16px;font-size:clamp(15px,4.3vw,17px);border-radius:18px}
+html body #app .play .opt i{width:24px;height:24px;flex:none}
+html body #app .play .eq{margin-top:12px;padding:clamp(16px,3.2vh,26px) 14px;font-size:clamp(26px,8vw,34px);border-radius:20px}
+html body #app .play .bottomact{margin-top:auto;padding-top:14px}
+html body #app .play .fb{margin-top:12px}
+/* anagramas: bloque centrado y fichas grandes */
+html body #app .play .tiles2{margin-top:auto;gap:clamp(4px,1.6vw,9px);flex-wrap:nowrap}
+html body #app .play .tl{flex:1 1 0;min-width:0;max-width:50px;width:auto;height:clamp(48px,13.5vw,60px);font-size:clamp(22px,6.5vw,28px);border-radius:14px}
+html body #app .play .tiles2~.field{height:58px;font-size:19px;margin-top:18px !important;border-radius:18px}
+html body #app .play .tiles2~[data-a=chk]{min-height:54px;margin-top:12px;font-size:16px}
+/* dibujo: lienzo alto */
+html body #app .play .canvas-wrap{flex:1 1 auto;display:flex;min-height:240px;max-height:440px}
+html body #app .play .canvas-wrap canvas{height:auto;flex:1;min-height:240px}
+/* contrarreloj: reloj compacto */
+html body #app .play .card-d{margin:8px 0 2px !important}
+@media(max-height:700px){
+  html body #app .play .opt{min-height:46px;max-height:64px;margin-top:8px;padding:9px 13px}
+  html body #app .play .canvas-wrap{min-height:180px}
+  html body #app .play .canvas-wrap canvas{min-height:180px}
+}
 .ia-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px;background:rgba(124,92,255,.16);color:#8f74ff;margin-left:6px;vertical-align:middle}
 </style>
 </head>
