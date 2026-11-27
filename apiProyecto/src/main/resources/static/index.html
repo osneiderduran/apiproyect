@@ -1288,37 +1288,117 @@ body.hc .scr.light>:not(.nav){filter:contrast(1.08)}
 html body #app .nav{will-change:auto;-webkit-transform:translate3d(-50%,0,0) !important;transform:translate3d(-50%,0,0) !important;backface-visibility:hidden}
 html{overscroll-behavior-y:none}
 
-/* Splash de entrada */
-#splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-  background:radial-gradient(90% 55% at 50% 38%,#2a1fa8 0,transparent 70%),linear-gradient(180deg,#0a0e44,#070a35);color:#fff;overflow:hidden;
-  transition:opacity .45s ease,transform .45s ease}
-#splash.out{opacity:0;transform:scale(1.06);pointer-events:none}
-#splash .sp-glow{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,#8f74ff66,transparent 65%);animation:spGlow 2.2s ease-in-out infinite}
-#splash .sp-m{width:190px;height:175px;position:relative;animation:spPop .8s cubic-bezier(.3,1.55,.5,1) both}
-#splash .sp-m svg{width:100%;height:100%;filter:drop-shadow(0 14px 22px rgba(0,0,20,.45))}
-#splash .sp-t{font-size:32px;font-weight:900;letter-spacing:-.02em;position:relative;display:flex}
-#splash .sp-t span{display:inline-block;animation:spUp .5s cubic-bezier(.3,1.4,.5,1) both}
-#splash .sp-s{position:relative;color:#c9c4ff;font-size:14px;font-weight:700;animation:spFade .6s .75s both}
-#splash .sp-bar{position:relative;width:140px;height:6px;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:14px;animation:spFade .4s .5s both}
-#splash .sp-bar i{position:absolute;inset:0;background:linear-gradient(90deg,#f0abfc,#a78bfa,#5b8dff);transform-origin:left;animation:spLoad 1.5s .5s ease-in-out both}
-#splash .sp-star{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;opacity:0;animation:spTw 2s ease-in-out infinite}
-@keyframes spPop{0%{transform:scale(.2) translateY(60px) rotate(-14deg);opacity:0}70%{opacity:1}100%{transform:none}}
-@keyframes spUp{from{transform:translateY(24px) scale(.6);opacity:0}}
+/* Splash de entrada v38: aurora, ondas, destellos y camaleón que cambia de color */
+#splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(120% 80% at 50% 115%,#3b1a8f 0,transparent 60%),linear-gradient(170deg,#0b0f4f 0%,#0a0d3d 55%,#060828 100%);
+  color:#fff;overflow:hidden;clip-path:circle(150% at 50% 45%);transition:clip-path .7s cubic-bezier(.7,0,.25,1),opacity .7s ease}
+#splash.out{clip-path:circle(0% at 50% 45%);opacity:.4;pointer-events:none}
+#splash .sp-blob{position:absolute;border-radius:50%;filter:blur(46px);opacity:.55;mix-blend-mode:screen}
+#splash .b1{width:300px;height:300px;background:#7c3aed;left:-80px;top:8%;animation:spDrift1 6s ease-in-out infinite alternate}
+#splash .b2{width:260px;height:260px;background:#ec4899;right:-70px;top:30%;animation:spDrift2 7s ease-in-out infinite alternate}
+#splash .b3{width:280px;height:280px;background:#22d3ee;left:20%;bottom:-120px;opacity:.4;animation:spDrift1 8s ease-in-out infinite alternate-reverse}
+@keyframes spDrift1{to{transform:translate(60px,40px) scale(1.15)}}
+@keyframes spDrift2{to{transform:translate(-50px,-30px) scale(1.2)}}
+#splash .sp-stage{position:relative;width:240px;height:220px;display:grid;place-items:center}
+#splash .sp-ring{position:absolute;left:50%;top:52%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:2px solid rgba(196,181,253,.55);opacity:0;animation:spRing 1.8s .45s ease-out infinite}
+#splash .sp-ring.r2{animation-delay:1.05s}
+@keyframes spRing{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+#splash .sp-halo{position:absolute;left:50%;top:52%;width:190px;height:190px;margin:-95px 0 0 -95px;border-radius:50%;
+  background:conic-gradient(from 0deg,#a78bfa,#f472b6,#fbbf24,#34d399,#38bdf8,#a78bfa);filter:blur(28px);opacity:.45;animation:spSpin 4s linear infinite,spFade .6s .3s both}
+@keyframes spSpin{to{transform:rotate(360deg)}}
+#splash .sp-m{position:relative;width:200px;height:184px;animation:spDrop .95s .15s cubic-bezier(.25,1.6,.45,1) both,spFloat 2.6s 1.1s ease-in-out infinite}
+#splash .sp-m svg{width:100%;height:100%;filter:drop-shadow(0 18px 24px rgba(0,0,30,.55));animation:spHue 2.4s 1s ease-in-out both}
+@keyframes spDrop{0%{transform:translateY(-120px) scale(.4) rotate(-20deg);opacity:0}60%{opacity:1}100%{transform:none}}
+@keyframes spFloat{50%{transform:translateY(-8px)}}
+@keyframes spHue{0%{filter:drop-shadow(0 18px 24px rgba(0,0,30,.55)) hue-rotate(0)}30%{filter:drop-shadow(0 18px 24px rgba(0,0,30,.55)) hue-rotate(120deg)}60%{filter:drop-shadow(0 18px 24px rgba(0,0,30,.55)) hue-rotate(250deg)}100%{filter:drop-shadow(0 18px 24px rgba(0,0,30,.55)) hue-rotate(360deg)}}
+#splash .sp-spark{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;opacity:0;animation:spBurst 1s 1s cubic-bezier(.2,.8,.3,1) both}
+#splash .sp-spark:before,#splash .sp-spark:after{content:"";position:absolute;left:4px;top:0;width:2px;height:10px;border-radius:2px;background:var(--c,#fde68a)}
+#splash .sp-spark:after{transform:rotate(90deg)}
+@keyframes spBurst{0%{transform:rotate(var(--a)) translateY(0) scale(.3);opacity:1}70%{opacity:1}100%{transform:rotate(var(--a)) translateY(-130px) scale(1) rotate(180deg);opacity:0}}
+#splash .sp-t{position:relative;overflow:hidden;padding:0 6px;margin-top:6px;font-size:36px;font-weight:900;letter-spacing:-.02em;display:flex}
+#splash .sp-t span{display:inline-block;background:linear-gradient(180deg,#fff 30%,#e9d5ff);-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:spLetter .6s cubic-bezier(.3,1.5,.5,1) both}
+#splash .sp-t span.gd{background:linear-gradient(90deg,#fde68a,#fb923c,#f472b6);-webkit-background-clip:text;background-clip:text}
+@keyframes spLetter{0%{transform:translateY(30px) rotate(12deg) scale(.4);opacity:0}100%{transform:none;opacity:1}}
+#splash .sp-shine{position:absolute;inset:-4px -10px;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.28) 50%,transparent 60%);
+  border-radius:12px;transform:translateX(-120%);animation:spShine 1.1s 1.35s ease-in-out both;pointer-events:none}
+@keyframes spShine{to{transform:translateX(120%)}}
+#splash .sp-s{position:relative;margin-top:6px;color:#d8d2ff;font-size:14px;font-weight:700;letter-spacing:.02em;animation:spFade .6s 1.2s both}
+#splash .sp-dots{display:flex;gap:7px;margin-top:22px;animation:spFade .4s .9s both}
+#splash .sp-dots i{width:9px;height:9px;border-radius:50%;background:#c4b5fd;animation:spDot 1s ease-in-out infinite}
+#splash .sp-dots i:nth-child(2){animation-delay:.15s;background:#f9a8d4}#splash .sp-dots i:nth-child(3){animation-delay:.3s;background:#fde68a}
+@keyframes spDot{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-8px);opacity:1}}
 @keyframes spFade{from{opacity:0;transform:translateY(8px)}}
-@keyframes spLoad{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes spGlow{50%{transform:scale(1.15);opacity:.7}}
-@keyframes spTw{50%{opacity:.9;transform:scale(1.6)}}
+#splash .sp-star{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:0;animation:spTw 2.2s ease-in-out infinite}
+@keyframes spTw{50%{opacity:.9;transform:scale(1.8)}}
+#splash .sp-skip{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));font-size:12px;color:rgba(255,255,255,.45);font-weight:700;animation:spFade .5s 1.6s both}
+@media(prefers-reduced-motion:reduce){#splash{transition:opacity .3s}#splash.out{clip-path:none;opacity:0}}
 
 /* Memoria: al taparse, las cartas se voltean en su mismo lugar (ya no cambian de posición) */
 .memg.tap .mc{animation:memTap .5s ease-in-out both}
 .memg.tap .mc:nth-child(4n+2){animation-delay:.05s}.memg.tap .mc:nth-child(4n+3){animation-delay:.1s}.memg.tap .mc:nth-child(4n+4){animation-delay:.15s}
 @keyframes memTap{0%{transform:rotateY(0)}50%{transform:rotateY(90deg) scale(.94)}100%{transform:rotateY(0)}}
 .w-foot b svg{display:inline-block;vertical-align:-1px;margin-right:3px}
+
+/* v38: instalar app */
+.inst{display:flex;align-items:center;gap:12px;margin:14px 18px 0;padding:13px 14px;border-radius:22px;
+  background:linear-gradient(135deg,#8b6cff,#5b8dff 70%,#38bdf8);color:#fff;box-shadow:0 14px 30px rgba(91,141,255,.35);position:relative}
+.inst .ii{flex:none;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.22);display:grid;place-items:center}
+.inst b{display:block;font-size:15px;font-weight:900;line-height:1.2}.inst small{display:block;font-size:12px;opacity:.9;margin-top:2px}
+.inst .ib{margin-left:auto;flex:none;background:#fff;color:#4b34d6;font-weight:900;font-size:13px;padding:9px 14px;border-radius:99px}
+.inst .ix{position:absolute;top:6px;right:8px;width:24px;height:24px;display:grid;place-items:center;opacity:.75}
+.ihelp-v{position:fixed;inset:0;z-index:80;background:rgba(5,6,30,.6);display:flex;align-items:flex-end;justify-content:center;animation:fade .2s}
+.ihelp{width:min(100%,440px);background:#fff;color:#1a1c45;border-radius:28px 28px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));animation:ihUp .3s cubic-bezier(.2,.9,.3,1)}
+@keyframes ihUp{from{transform:translateY(100%)}}
+.ihelp h3{font-size:20px;font-weight:900;margin-bottom:4px}.ihelp p.mu{color:#6b7094!important}
+.ihelp ol{margin:14px 0 18px;padding:0;list-style:none;counter-reset:st}
+.ihelp li{counter-increment:st;display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #eceefa;font-weight:700;font-size:15px}
+.ihelp li:before{content:counter(st);flex:none;width:28px;height:28px;border-radius:50%;background:#efeaff;color:#6c4cff;display:grid;place-items:center;font-weight:900}
+.ihelp li span.k{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:8px;background:#f1f2fb;font-weight:900}
+.ihelp li span.k svg{display:inline-block}
+.ihelp .btn{width:100%}
+.w-inst{margin-top:12px;display:inline-flex;align-items:center;gap:7px;color:#e9e3ff;font-weight:800;font-size:14px;padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22)}
+.w-inst svg{display:inline-block}
+body.dk .ihelp{background:#171f73;color:#f2f3ff}body.dk .ihelp li{border-color:rgba(255,255,255,.1)}body.dk .ihelp li span.k{background:rgba(255,255,255,.1)}
+
+/* v38: acceso (iniciar sesión / registrarse) usando toda la pantalla */
+html body #app .scr.auth-screen{height:auto;min-height:100vh;min-height:100dvh;overflow:visible}
+html body #app .auth-screen .auth-pad{flex:1;display:flex;flex-direction:column;min-height:100dvh;padding:calc(14px + env(safe-area-inset-top,0px)) 22px calc(18px + env(safe-area-inset-bottom,0px)) !important;position:relative;z-index:1}
+html body #app .auth-pad>.iconbtn{width:42px;height:42px;min-height:42px}
+html body #app .auth-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:170px;padding:8px 0 4px}
+html body #app .auth-mascot{width:clamp(120px,38vw,170px) !important;height:clamp(110px,35vw,156px) !important;overflow:visible;animation:auFloat 3s ease-in-out infinite}
+html body #app .auth-mascot svg{filter:drop-shadow(0 14px 20px rgba(0,0,30,.45))}
+@keyframes auFloat{50%{transform:translateY(-6px)}}
+html body #app .auth-pad .h1{font-size:clamp(26px,7.4vw,32px);margin-top:10px !important}
+html body #app .auth-pad .auth-sub{font-size:15px;margin-top:6px !important}
+html body #app .auth-card{background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.16);border-radius:28px;padding:16px;
+  box-shadow:0 18px 40px rgba(0,0,30,.35),inset 0 1px 0 rgba(255,255,255,.12);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+html body #app .auth-pad .auth-seg{margin-top:0}
+html body #app .auth-pad .seg button{height:44px;font-size:15px}
+html body #app .auth-pad .field{height:52px;margin-top:12px;padding:0 16px;font-size:16px;border-radius:16px}
+html body #app .auth-pad .forgot-row{margin-top:8px}
+html body #app .auth-pad .forgot-row button{font-size:13px;padding:2px 0}
+html body #app .auth-pad .auth-submit{min-height:54px;margin-top:14px;border-radius:18px;font-size:17px}
+html body #app .auth-pad .auth-note{font-size:11px;margin:12px 6px 0}
+html body #app .auth-perks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+html body #app .auth-perks div{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:12px 6px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
+html body #app .auth-perks i{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-style:normal}
+html body #app .auth-perks b{font-size:12.5px;font-weight:800;line-height:1.2;color:#f2f3ff}
+html body #app .auth-screen .auth-mount{position:absolute;left:0;right:0;bottom:0;height:46%;opacity:.55;pointer-events:none;z-index:0}
+html body #app .auth-screen .auth-mount svg{width:100%;height:100%}
+@media(max-height:700px){
+  html body #app .auth-hero{min-height:0;padding:0}
+  html body #app .auth-mascot{width:92px !important;height:84px !important}
+  html body #app .auth-pad .h1{font-size:24px;margin-top:4px !important}
+  html body #app .auth-pad .field{height:46px;margin-top:9px}
+  html body #app .auth-pad .auth-submit{min-height:48px;margin-top:11px}
+  html body #app .auth-perks{display:none}
+}
 .ia-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:99px;background:rgba(124,92,255,.16);color:#8f74ff;margin-left:6px;vertical-align:middle}
 </style>
 </head>
 <body>
-<div id="splash" aria-hidden="true"><i class="sp-star" style="left:12%;top:18%;animation-delay:0.1s"></i><i class="sp-star" style="left:80%;top:14%;animation-delay:0.6s"></i><i class="sp-star" style="left:26%;top:72%;animation-delay:1.1s"></i><i class="sp-star" style="left:88%;top:64%;animation-delay:0.3s"></i><i class="sp-star" style="left:50%;top:10%;animation-delay:0.9s"></i><i class="sp-star" style="left:8%;top:46%;animation-delay:1.4s"></i><i class="sp-star" style="left:70%;top:86%;animation-delay:0.5s"></i><i class="sp-star" style="left:40%;top:88%;animation-delay:1.2s"></i><div class="sp-glow"></div><div class="sp-m" id="sp-m"></div><div class="sp-t"><span style="animation-delay:0.35s">R</span><span style="animation-delay:0.39s">e</span><span style="animation-delay:0.43s">t</span><span style="animation-delay:0.47s">o</span><span style="animation-delay:0.51s">&nbsp;</span><span style="animation-delay:0.55s">D</span><span style="animation-delay:0.59s">i</span><span style="animation-delay:0.63s">a</span><span style="animation-delay:0.67s">r</span><span style="animation-delay:0.71s">i</span><span style="animation-delay:0.75s">o</span></div><p class="sp-s">Pequeños retos, grandes cambios</p><div class="sp-bar"><i></i></div></div>
+<div id="splash" aria-hidden="true"><i class="sp-blob b1"></i><i class="sp-blob b2"></i><i class="sp-blob b3"></i><i class="sp-star" style="left:45%;top:23%;animation-delay:0.8s"></i><i class="sp-star" style="left:10%;top:13%;animation-delay:1.6s"></i><i class="sp-star" style="left:16%;top:50%;animation-delay:1.2s"></i><i class="sp-star" style="left:68%;top:31%;animation-delay:0.1s"></i><i class="sp-star" style="left:59%;top:57%;animation-delay:0.1s"></i><i class="sp-star" style="left:15%;top:74%;animation-delay:0.8s"></i><i class="sp-star" style="left:76%;top:19%;animation-delay:1.9s"></i><i class="sp-star" style="left:84%;top:84%;animation-delay:1.2s"></i><i class="sp-star" style="left:11%;top:77%;animation-delay:1.2s"></i><i class="sp-star" style="left:10%;top:32%;animation-delay:0.1s"></i><i class="sp-star" style="left:21%;top:41%;animation-delay:0.8s"></i><i class="sp-star" style="left:73%;top:19%;animation-delay:1.1s"></i><i class="sp-star" style="left:75%;top:91%;animation-delay:0.4s"></i><i class="sp-star" style="left:78%;top:77%;animation-delay:1.3s"></i><i class="sp-star" style="left:51%;top:16%;animation-delay:1.1s"></i><i class="sp-star" style="left:12%;top:76%;animation-delay:0.1s"></i><div class="sp-stage"><i class="sp-halo"></i><i class="sp-ring"></i><i class="sp-ring r2"></i><i class="sp-spark" style="--a:0deg;--c:#fde68a;animation-delay:0.95s"></i><i class="sp-spark" style="--a:36deg;--c:#f9a8d4;animation-delay:0.99s"></i><i class="sp-spark" style="--a:72deg;--c:#a5f3fc;animation-delay:1.03s"></i><i class="sp-spark" style="--a:108deg;--c:#c4b5fd;animation-delay:0.95s"></i><i class="sp-spark" style="--a:144deg;--c:#86efac;animation-delay:0.99s"></i><i class="sp-spark" style="--a:180deg;--c:#fdba74;animation-delay:1.03s"></i><i class="sp-spark" style="--a:216deg;--c:#fde68a;animation-delay:0.95s"></i><i class="sp-spark" style="--a:252deg;--c:#f9a8d4;animation-delay:0.99s"></i><i class="sp-spark" style="--a:288deg;--c:#a5f3fc;animation-delay:1.03s"></i><i class="sp-spark" style="--a:324deg;--c:#c4b5fd;animation-delay:0.95s"></i><div class="sp-m" id="sp-m"></div></div><div class="sp-t"><span style="animation-delay:0.55s">R</span><span style="animation-delay:0.60s">e</span><span style="animation-delay:0.65s">t</span><span style="animation-delay:0.70s">o</span><span style="width:.28em"></span><span class="gd" style="animation-delay:0.80s">D</span><span class="gd" style="animation-delay:0.85s">i</span><span class="gd" style="animation-delay:0.90s">a</span><span class="gd" style="animation-delay:0.95s">r</span><span class="gd" style="animation-delay:1.00s">i</span><span class="gd" style="animation-delay:1.05s">o</span><i class="sp-shine"></i></div><p class="sp-s">Pequeños retos, grandes cambios</p><div class="sp-dots"><i></i><i></i><i></i></div><small class="sp-skip">Toca para continuar</small></div>
 <!-- degradados compartidos para el camaleón -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CEB7E"/><stop offset="1" stop-color="#27B068"/></linearGradient>
@@ -1393,6 +1473,8 @@ var IC = {
   out:'<path d="M9 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4M16 17l5-5-5-5M21 12H9"/>',
   contrast:'<circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>',
   globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+  download:'<path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/>',
+  share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 11H5v9h14v-9h-1"/>',
   moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
   trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',
   trophy:'<path d="M7 4h10v5a5 5 0 0 1-10 0zM7 6H3v1a4 4 0 0 0 4 4M17 6h4v1a4 4 0 0 1-4 4M12 14v4M8 21h8M9 18h6"/>',
@@ -1824,6 +1906,39 @@ function submit(){
   req.then(function(u){ S.busy = false; setUser(u, reg); }).catch(function(e){ S.busy = false; S.err = e.message; render(); });
 }
 
+
+/* ---------- v38: instalar la app en el teléfono ---------- */
+var INST = {ev:null};
+window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); INST.ev = e; if(typeof render === "function" && S && S.view) render(); });
+window.addEventListener("appinstalled", function(){ INST.ev = null; S.instHelp = false; toast("¡Listo! Reto Diario quedó instalada."); });
+function esApp(){ return (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true; }
+function esIOS(){ return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
+function esMovil(){ return esIOS() || /android|mobile/i.test(navigator.userAgent); }
+function puedeInstalar(){ return !esApp() && (!!INST.ev || esMovil()); }
+function instalarApp(){
+  if(INST.ev){
+    var ev = INST.ev; INST.ev = null;
+    ev.prompt();
+    (ev.userChoice || Promise.resolve({})).then(function(r){ if(r && r.outcome === "dismissed") toast("Puedes instalarla cuando quieras desde Configuración."); render(); });
+    return;
+  }
+  S.instHelp = true; render();
+}
+function instCard(){
+  if(!puedeInstalar() || load("inst_hide") === hoy()) return "";
+  return '<div class="inst"><span class="ii">' + ic("download", 22, 2.4) + '</span><div><b>Instala Reto Diario</b><small>Ábrela como app desde tu pantalla de inicio</small></div>' +
+    '<button class="ib" data-a="install">Instalar</button><button class="ix" data-a="insthide" aria-label="Ocultar">' + ic("close", 14, 2.6) + '</button></div>';
+}
+function instHelp(){
+  if(!S.instHelp) return "";
+  var ios = esIOS();
+  var pasos = ios
+    ? ['Abre esta página en <b>Safari</b>', 'Toca <span class="k">' + ic("share", 16, 2.4) + ' Compartir</span> abajo', 'Elige <span class="k">Agregar a inicio</span>', 'Toca <span class="k">Agregar</span>']
+    : ['Abre esta página en <b>Chrome</b>', 'Toca el menú <span class="k">⋮</span> arriba a la derecha', 'Elige <span class="k">Instalar app</span> o <span class="k">Agregar a la pantalla principal</span>', 'Confirma con <span class="k">Instalar</span>'];
+  return '<div class="ihelp-v" data-a="instclose"><div class="ihelp" data-a="noop"><h3>Instala Reto Diario</h3><p class="mu">' +
+    (ios ? 'En iPhone se instala desde Safari:' : 'Sigue estos pasos en tu teléfono:') + '</p><ol>' +
+    pasos.map(function(x){ return '<li><div>' + x + '</div></li>'; }).join("") + '</ol><button class="btn" data-a="instclose">Entendido</button></div></div>';
+}
 function confetti(){
   sfx("win");
   var cols = ["#8f74ff","#fbbf24","#22c55e","#f472b6","#38bdf8"], els = [];
@@ -2199,22 +2314,27 @@ function welcome(){
     '<p class="w-sub">Juega, aprende, mejora y construye la mejor versión de ti.</p>' +
     '<button class="btn" data-a="auth" data-m="reg">Crear cuenta</button>' +
     '<button class="btn ghost" data-a="auth" data-m="login">Iniciar sesión</button>' +
+    (esApp() ? '' : '<button class="w-inst" data-a="install">' + ic("download", 16, 2.4) + 'Instalar app en el teléfono</button>') +
     '<p class="w-foot"><b>' + ic("heart", 12, 1) + '</b> Tu progreso, tu historia</p></div></div>';
 }
 function auth(){
   var reg = S.mode === "reg";
-  return '<div class="scr dark auth-screen"><div class="pad auth-pad" style="padding-top:calc(16px + env(safe-area-inset-top,0))">' +
+  return '<div class="scr dark auth-screen"><div class="auth-mount">' + mountains() + '</div><div class="pad auth-pad">' +
     '<button class="iconbtn" data-a="back" aria-label="Volver">' + ic("back") + '</button>' +
-    '<div class="auth-mascot">' + cham({branch:false}) + '</div>' +
-    '<h1 class="h1" style="text-align:center;margin-top:2px">' + (reg ? "Crea tu cuenta" : "Bienvenido de nuevo") + '</h1>' +
-    '<p class="mu" style="text-align:center;margin-top:5px">' + (reg ? "Empieza tu primer reto en menos de un minuto." : "Tu racha te está esperando.") + '</p>' +
-    '<div class="seg auth-seg"><button class="' + (!reg ? "on" : "") + '" data-a="mode" data-m="login">Iniciar sesión</button><button class="' + (reg ? "on" : "") + '" data-a="mode" data-m="reg">Registrarse</button></div>' +
+    '<div class="auth-hero"><div class="auth-mascot">' + cham({branch:false}) + '</div>' +
+    '<h1 class="h1" style="text-align:center">' + (reg ? "Crea tu cuenta" : "Bienvenido de nuevo") + '</h1>' +
+    '<p class="mu auth-sub" style="text-align:center">' + (reg ? "Empieza tu primer reto en menos de un minuto." : "Tu racha te está esperando.") + '</p></div>' +
+    '<div class="auth-card"><div class="seg auth-seg"><button class="' + (!reg ? "on" : "") + '" data-a="mode" data-m="login">Iniciar sesión</button><button class="' + (reg ? "on" : "") + '" data-a="mode" data-m="reg">Registrarse</button></div>' +
     (reg ? '<input class="field" id="f-nombre" placeholder="Nombre" value="' + esc(S.form.nombre) + '" autocomplete="name">' : '') +
     '<input class="field" id="f-email" type="email" placeholder="Correo electrónico" value="' + esc(S.form.email) + '" autocomplete="email">' +
     '<input class="field" id="f-pass" type="password" placeholder="Contraseña" autocomplete="' + (reg ? "new-password" : "current-password") + '">' +
     (!reg ? '<div class="forgot-row"><button data-a="forgot">¿Olvidaste tu contraseña?</button></div>' : '') +
     (S.err ? '<div class="err">' + esc(S.err) + '</div>' : '') +
     '<button class="btn auth-submit" data-a="submit"' + (S.busy ? " disabled" : "") + '>' + (S.busy ? "Un momento…" : (reg ? "Crear cuenta" : "Iniciar sesión")) + '</button>' +
+    '</div><div class="auth-perks">' +
+      '<div><i style="background:#ff7a2f33;color:#ff9b57">' + ic("flame", 20, 2.2) + '</i><b>Mantén tu racha</b></div>' +
+      '<div><i style="background:#a78bfa33;color:#c4b5fd">' + ic("game", 20, 2.2) + '</i><b>Juegos nuevos cada día</b></div>' +
+      '<div><i style="background:#fbbf2433;color:#fcd34d">' + ic("star", 20, 2.2) + '</i><b>Gana XP y sube de nivel</b></div></div>' +
     '<p class="auth-note">Al continuar, aceptas las condiciones de uso y la política de privacidad.</p>' +
     '</div></div>';
 }
@@ -2311,7 +2431,7 @@ function home(){
   return '<div class="scr dark">' +
     '<div class="hi"><button class="iconbtn" data-a="drawer" aria-label="Menú">' + ic("menu") + '</button><div class="grow"></div>' +
     '<button class="iconbtn" data-a="notif" aria-label="Notificaciones">' + ic("bell") + '<span class="dot"></span></button><button class="avatar" data-a="view" data-m="perfil" aria-label="Perfil">' + chamHead() + '</button></div>' +
-    '<div class="hello" style="padding:6px 18px 0"><h1>Hola, ' + esc(nombre1()) + '</h1><p class="mu" style="margin-top:3px">¡Sigue así! Cada reto te acerca a tus metas.</p></div>' +
+    '<div class="hello" style="padding:6px 18px 0"><h1>Hola, ' + esc(nombre1()) + '</h1><p class="mu" style="margin-top:3px">¡Sigue así! Cada reto te acerca a tus metas.</p></div>' + instCard() +
     '<div class="lvl"><div class="t"><div class="st">' + ic("star", 24, 2.4) + '</div><div class="grow"><div class="row" style="justify-content:space-between"><b style="font-size:17px;font-weight:900">Nivel ' + u.nivel + ' · ' + nivelNombre(u.nivel) + '</b><small style="color:#d6d9ff;font-weight:700">' + pct + ' / 100 XP</small></div><div class="xpbar"><i style="width:' + pct + '%"></i></div></div></div></div>' +
     '<div class="tiles">' +
       '<button class="tile" data-a="view" data-m="racha"><div class="ti" style="background:#ff7a2f33;color:#ff9b57">' + ic("flame", 20, 2.2) + '</div><b>' + r + ' ' + (r === 1 ? "día" : "días") + '</b><small>Racha</small></button>' +
@@ -2550,6 +2670,7 @@ function ajustes(){
     '<button class="li" data-a="pref" data-m="mute">' + ic("volume") + 'Sonidos y vibración<span class="sw' + (p.mute ? "" : " on") + '"></span></button>' +
     '<button class="li" data-a="pref" data-m="dark">' + ic("moon") + 'Tema oscuro<span class="sw' + (p.dark ? " on" : "") + '"></span></button>' +
     '<div class="li">' + ic("globe") + 'Idioma<span class="v">Español</span></div>' +
+    (esApp() ? '' : '<button class="li" data-a="install">' + ic("download") + 'Instalar app en el teléfono<span class="v">' + ic("arrow", 16) + '</span></button>') +
     '<button class="li red" data-a="delacc">' + ic("trash") + 'Eliminar cuenta</button></div></div></div>';
 }
 function ranking(){
@@ -2597,7 +2718,7 @@ function render(){
   }
   var sc = window.pageYOffset;
   var _chg = S._lv !== v; S._lv = v;
-  document.getElementById("app").innerHTML = html + (S.drawer ? drawer() : "") + (S.toast ? '<div class="toast">' + esc(S.toast) + '</div>' : "");
+  document.getElementById("app").innerHTML = html + (S.drawer ? drawer() : "") + instHelp() + (S.toast ? '<div class="toast">' + esc(S.toast) + '</div>' : "");
   if(_chg){ var _f = document.querySelector("#app>.scr"); if(_f) _f.classList.add("enter"); }
   document.querySelector('meta[name="theme-color"]').setAttribute("content", v === "play" || v === "retos" || v === "perfil" ? "#6c4cff" : "#0a0e44");
   if(keep){ var el = document.getElementById(keep.id); if(el){ el.focus(); try{ el.setSelectionRange(keep.s, keep.s); }catch(e){} } }
@@ -2725,6 +2846,9 @@ document.addEventListener("click", function(e){
   }
   else if(a === "plandel"){ var pn2 = planes(); (pn2[S.sel] || []).splice(Number(m), 1); save("plans_" + S.user.id, pn2); render(); }
   else if(a === "logout"){ logout(); }
+  else if(a === "install"){ instalarApp(); }
+  else if(a === "insthide"){ save("inst_hide", hoy()); render(); }
+  else if(a === "instclose"){ if(e.target.closest("[data-a=noop]") && !e.target.closest("[data-a=instclose].btn")) return; S.instHelp = false; render(); }
 });
 function logout(){ save("user", null); S.user = null; S.drawer = false; S.view = "welcome"; S.mode = "login"; render(); }
 document.addEventListener("change", function(e){
@@ -2753,10 +2877,10 @@ render();
 (function(){
   var sp = document.getElementById("splash"); if(!sp) return;
   var m = document.getElementById("sp-m"); try{ if(m) m.innerHTML = cham({branch:false}); }catch(e){}
-  var t0 = Date.now(), quitar = function(){ if(!sp.parentNode || sp.classList.contains("out")) return; sp.classList.add("out"); setTimeout(function(){ if(sp.parentNode) sp.parentNode.removeChild(sp); }, 480); };
+  var t0 = Date.now(), quitar = function(){ if(!sp.parentNode || sp.classList.contains("out")) return; sp.classList.add("out"); setTimeout(function(){ if(sp.parentNode) sp.parentNode.removeChild(sp); }, 720); };
   sp.addEventListener("click", function(){ if(Date.now() - t0 > 400) quitar(); });
   var corto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  setTimeout(quitar, corto ? 400 : 2100);
+  setTimeout(quitar, corto ? 400 : 2700);
 })();
 </script>
 </body>
