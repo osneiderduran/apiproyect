@@ -23,6 +23,16 @@ NOVEDADES v37
   Las preguntas nuevas llevan la etiqueta "Nueva". Si la IA no esta configurada, la app sigue con sus preguntas propias.
 - Se quitó el inicio de sesión con Google y Facebook (no estaba configurado). Solo correo y contraseña.
 
+NOVEDADES v38
+- Animacion de entrada nueva: fondo de colores en movimiento, ondas y destellos; el camaleon cae,
+  cambia de color y el titulo aparece letra por letra (toca para saltarla).
+- Boton "Instalar app" en la bienvenida, en Inicio y en Configuracion. En Android abre el instalador
+  de Chrome; en iPhone muestra los pasos (Safari > Compartir > Agregar a inicio).
+- Iniciar sesion y Registrarse usan toda la pantalla: camaleon grande, formulario en tarjeta y beneficios abajo.
+- Juegos: las opciones, preguntas, fichas de anagramas y el lienzo de dibujo aprovechan toda la pantalla.
+- La contraseña de MongoDB ya no esta en el codigo: se lee de la variable MONGODB_URI. Si falta o
+  esta mal escrita, el log lo dice claramente con una linea que empieza por [Reto Diario].
+
 ACTIVAR LA IA (gratis, sin tarjeta)
 1. Entra a https://console.groq.com, crea una cuenta y en "API Keys" crea una clave.
 2. En Railway: tu servicio > Variables > agrega GROQ_API_KEY con esa clave y vuelve a desplegar.
