@@ -1,4 +1,4 @@
-var CACHE = "retos-camaleon-v38";
+var CACHE = "retos-camaleon-v38b";
 var SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", function (e) {
@@ -18,7 +18,8 @@ self.addEventListener("fetch", function (e) {
   // La API nunca se guarda en caché
   if (e.request.method !== "GET" || url.origin !== self.location.origin || url.pathname.indexOf("/api/") === 0) return;
   e.respondWith(
-    fetch(e.request).then(function (res) {
+    // Siempre se pregunta al servidor por la versión nueva; la copia guardada solo se usa sin internet
+    fetch(e.request, { cache: "no-cache" }).then(function (res) {
       var copy = res.clone();
       caches.open(CACHE).then(function (c) { c.put(e.request, copy); });
       return res;

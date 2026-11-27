@@ -2697,7 +2697,8 @@ function ajustes(){
     '<button class="li" data-a="pref" data-m="dark">' + ic("moon") + 'Tema oscuro<span class="sw' + (p.dark ? " on" : "") + '"></span></button>' +
     '<div class="li">' + ic("globe") + 'Idioma<span class="v">Español</span></div>' +
     (esApp() ? '' : '<button class="li" data-a="install">' + ic("download") + 'Instalar app en el teléfono<span class="v">' + ic("arrow", 16) + '</span></button>') +
-    '<button class="li red" data-a="delacc">' + ic("trash") + 'Eliminar cuenta</button></div></div></div>';
+    '<button class="li red" data-a="delacc">' + ic("trash") + 'Eliminar cuenta</button></div>' +
+    '<p class="mu" style="text-align:center;margin-top:16px;font-size:12px">Reto Diario · versión 38</p></div></div>';
 }
 function ranking(){
   var l = S.ranking, pos = 0;
@@ -2888,7 +2889,10 @@ document.addEventListener("keydown", function(e){
 });
 
 if("serviceWorker" in navigator && location.protocol !== "file:"){
-  navigator.serviceWorker.register("sw.js").catch(function(){});
+  // Cuando se publica una versión nueva, la página se recarga sola una vez para mostrarla
+  var _swRecargado = false, _swHabia = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener("controllerchange", function(){ if(_swHabia && !_swRecargado){ _swRecargado = true; location.reload(); } });
+  navigator.serviceWorker.register("sw.js", {updateViaCache:"none"}).then(function(r){ try{ r.update(); }catch(e){} }).catch(function(){});
 }
 
 var pr = load("prefs"); if(pr) S.prefs = Object.assign(S.prefs, pr);
