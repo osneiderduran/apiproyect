@@ -1,4 +1,4 @@
-var CACHE = "retos-camaleon-v36";
+var CACHE = "retos-camaleon-v37";
 var SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 
 self.addEventListener("install", function (e) {

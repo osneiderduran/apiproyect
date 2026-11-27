@@ -1,0 +1,26 @@
+RETO DIARIO — VERSIÓN 30: DINÁMICAS Y PROGRESIÓN
+
+Incluye:
+- Minijuego “Encuentra el diferente”.
+- Minijuego “Contrarreloj” con 60 segundos y preguntas aleatorias.
+- Reto sorpresa diario que evita elegir uno de los últimos juegos realizados cuando hay alternativas.
+- Rotación de preguntas para reducir repeticiones en acertijos, lógica y anagramas.
+- Aventura del camaleón con capítulos que se desbloquean por XP.
+- Liga semanal local (Bronce, Plata, Oro y Diamante) basada en la actividad registrada.
+- Invitación para compartir un reto con el menú nativo del teléfono/navegador o copiar el mensaje.
+- Versión nueva de caché PWA para facilitar que el navegador cargue los archivos actualizados.
+
+IMPORTANTE:
+- La aventura, el reto sorpresa y la liga local guardan parte de su estado en el navegador del dispositivo.
+- La liga no es una competición global en tiempo real. Para eso se necesita implementar endpoints y almacenamiento compartido en Spring Boot/MongoDB.
+- El botón para invitar comparte un mensaje; no crea una sala privada ni sincroniza amigos.
+
+CÓMO EJECUTAR EN WINDOWS CON JAVA 17:
+1. Descomprime el ZIP.
+2. Abre la carpeta apiProyecto en Visual Studio Code.
+3. Abre la terminal integrada y ejecuta:
+   mvn spring-boot:run
+4. Abre http://localhost:8080
+5. Mantén MongoDB configurado en application.properties o application.yml.
+
+Si el puerto 8080 está ocupado, cierra la instancia anterior de Reto Diario antes de iniciar otra.

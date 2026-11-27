@@ -1,0 +1,123 @@
+RETO DIARIO — PROYECTO WEB INSTALABLE (PWA)
+===========================================
+
+REQUISITOS
+- Java 17 o superior
+- Maven 3.9 o superior
+- MongoDB Atlas o una instancia local de MongoDB
+
+CONFIGURAR MONGODB DE FORMA SEGURA
+1. Abre la carpeta apiProyecto en VS Code.
+2. Configura la variable de entorno SPRING_DATA_MONGODB_URI con tu cadena nueva de MongoDB.
+3. Opcionalmente define SPRING_DATA_MONGODB_DATABASE=apiproyecto.
+4. No guardes contraseñas ni cadenas de conexión en archivos versionados.
+5. Si utilizaste las credenciales que estaban en el ZIP original, cámbialas en MongoDB Atlas antes de continuar.
+
+EJECUTAR
+- En la terminal, dentro de la carpeta que contiene pom.xml:
+  mvn spring-boot:run
+- Abre http://localhost:8080 en Chrome.
+- Para instalarla en Android, despliega la aplicación en un servidor HTTPS y abre la URL con Chrome > menú > Instalar aplicación.
+
+IMPORTANTE PARA TELÉFONO FÍSICO
+La dirección localhost de un teléfono apunta al propio teléfono, no al PC. Para probar desde un dispositivo físico, publica la aplicación con HTTPS o configura una dirección de servidor accesible desde la misma red. No publiques la base de datos ni expongas credenciales.
+
+ENDPOINTS PRINCIPALES
+- POST /api/users/register
+- POST /api/users/login
+- GET  /api/users/{id}
+- POST /api/users/{id}/completar/{retoId}
+- GET  /api/retos
+- GET  /api/retos?categoria=Logica
+- GET  /api/users/ranking
+
+NOTA DE SEGURIDAD
+Este proyecto es una base de desarrollo, no una plataforma lista para producción. Antes de publicarlo para usuarios reales, implementar autenticación/autorización completa para las rutas privadas, limitar CORS, agregar límites de intentos y pruebas de seguridad.
+
+
+DISEÑO EPICO v4
+- Interfaz renovada para bienvenida, inicio, juegos, progreso y navegación.
+- Conserva Java 17, Spring Boot, MongoDB y los archivos PWA.
+- No incluye contraseñas de MongoDB. Configura application-local.properties localmente.
+
+DISEÑO v5 — CAMALEÓN
+- Nueva interfaz móvil: bienvenida con camaleón, elección de categorías, inicio con nivel/racha/insignias,
+  retos jugables (físicos, mentales, creativos, aprendizaje), estadísticas, insignias, racha y configuración.
+- Solo se cambió la capa visual (index.html, íconos, manifest y sw.js). La API Java no se modificó.
+- Si ya tenías la app instalada, ciérrala y ábrela dos veces para que se actualice la caché.
+
+DISEÑO v6
+- Todos los emojis se reemplazaron por iconos SVG.
+- Nueva sección "Acertijos y lógica": Acertijos, Lógica, Secuencias, Memoria y Anagramas.
+- Nuevo Calendario: marca los días con actividad, muestra el detalle de cada día y permite planear retos (se guardan en el dispositivo).
+
+DISEÑO v7
+- Camaleón vivo: cambia de color según la categoría que más practicas en la semana y gana accesorios por nivel (gafas, corona, capa). Pantalla "Mi camaleón".
+- Check-in de energía diario (baja/normal/alta): el "Reto de hoy" y el tiempo del reto físico se adaptan.
+- Misiones del mundo real con checklist y foto opcional (la foto no se guarda).
+- Calendario de colores por categoría, vista de año tipo mosaico y frase del día.
+- Todo lo nuevo se guarda en el dispositivo (localStorage); la API Java no cambió.
+
+DISEÑO v8
+- La barra inferior (Inicio, Juegos, Calendario, Progreso, Perfil) ahora está siempre visible, como en una app móvil.
+- El Inicio quedó corto: nivel, racha, energía, reto de hoy y accesos a cada apartado.
+- "Juegos y retos" se dividió en tres apartados: Juegos, Misiones y Retos.
+
+DISEÑO v9
+- Inicio organizado por secciones: nivel, energía, reto de hoy, "Tu semana" y "Explora" (Juegos, Misiones, Calendario, Mi camaleón).
+- Más aire entre elementos en Racha, Insignias, Perfil, Clasificación y pantallas de juego (opciones más grandes).
+- Configuración se mantiene igual.
+
+DISEÑO v10
+- Retos: primero se muestran solo las 4 categorías; al tocar una aparece su lista de retos (con botón para volver).
+- Progreso: la tarjeta de categorías ahora es una cuadrícula pareja de 4 columnas y la gráfica es más compacta.
+
+DISEÑO v11
+- Los iconos tipo "emoji" de categorías y juegos se cambiaron por iconos de línea sobre fichas de color (más estilo app móvil).
+
+DISEÑO v12
+- Iconos propios de categorías y juegos: fichas con degradado, brillo y dibujo en dos tonos (sin emojis).
+
+DISEÑO v13
+- Inicio simplificado: se quitaron "Tu semana" y "Explora". Queda nivel, rachas, energía y reto de hoy; el resto está en la barra inferior.
+
+DISEÑO v14
+- El Calendario ya no es una pestaña de la barra inferior: ahora vive dentro de "Progreso" (pestañas Resumen | Calendario). La barra queda con 4 apartados: Inicio, Juegos, Progreso y Perfil.
+
+DISEÑO v15
+- Camaleón con personalidad: celebra (ojos felices, sonrisa y destellos) al acertar y al completar un reto, y piensa/anima ("¡Casi, tú puedes!") cuando fallas. Su carita es tu avatar en el Inicio.
+- Tarjetas de juego con dificultad, tiempo estimado y XP.
+- Animaciones ligeras: entrada de pantallas, icono que rebota al empezar un juego, acierto con pulso, error con sacudida, botones que responden al tocar.
+- Progreso: racha récord, categoría favorita y logros.
+
+DISEÑO v16 — PULIDO VISUAL MÓVIL
+- Refinamiento de fondos, tarjetas, botones, navegación inferior y jerarquía visual.
+- Mejora de interacción táctil, foco accesible y respeto a la preferencia de movimiento reducido.
+- Ajustes para pantallas estrechas y áreas seguras de Android.
+- Se actualizó la versión de caché PWA para que los dispositivos instalados reciban el nuevo estilo.
+- Se conserva la lógica existente, la API Java, MongoDB y la mascota SVG del camaleón.
+
+DISEÑO v24 — MODO CLARO "PASTEL GLASS"
+- Fondo degradado lavanda→azul, tarjetas de cristal blanco, barra inferior flotante (pestaña activa en negro) y tarjeta negra para el "Reto de hoy".
+- Se rehízo el modo claro de todas las pantallas: inicio, juegos, retos, quiz, reto completado, progreso, calendario, perfil, insignias, racha, clasificación, configuración, menú y elección de categorías.
+- El modo oscuro no cambia (se activa en Configuración > Tema oscuro).
+
+DISEÑO v25 — (el acceso con Google y Facebook se eliminó en la v37; solo se entra con correo y contraseña)
+
+DISEÑO v26 — TIENDA Y TARJETAS
+- Se quitó la pantalla "¿Qué te gustaría mejorar?": al crear la cuenta se entra directo al Inicio.
+- Nueva TIENDA (Inicio > Monedas, Perfil > Tienda o menú lateral): se gastan monedas para comprar colores fijos y accesorios (gafas, corona, capa) del camaleón. Las monedas = XP ganado menos lo gastado (el nivel no baja). Las compras se guardan en el dispositivo.
+- Se quitaron los mensajes dentro de las tarjetas (frase de la pantalla de Racha, mensaje del reto de hoy y frase del menú).
+- Tarjetas de juegos y retos con acento de color por categoría y botones/etiquetas en forma de píldora.
+
+DISEÑO v27 — ICONOS REALISTAS, SIN EMOJIS
+- Iconos de categorías, juegos y accesorios redibujados con más detalle y volumen (pesas metálicas, cerebro con circunvoluciones, lápiz, libro abierto, brújula, bombilla de vidrio, cartas, fichas de letras, gafas, corona y capa).
+- Los títulos y descripciones de los retos que llegan de la base de datos se limpian: cualquier emoji se elimina antes de mostrarse.
+
+DISEÑO v28 — ARMONÍA FONDO + TARJETAS
+- Fondo con profundidad (modo claro y oscuro): luces de color suaves, colinas al pie de la pantalla (como en la bienvenida) y estrellas en el modo oscuro.
+- Tarjetas de cristal con borde luminoso y sombras del mismo tono, para que el fondo se vea a través de ellas.
+- Barra inferior flotante también en modo oscuro; pestañas y botones con el mismo degradado violeta-azul.
+
+DISEÑO v29 — BORDES NEGROS
+- Las tarjetas, pestañas, campos de texto y la barra inferior tienen borde negro de 1.5 px y una sombra sólida inferior (efecto "botón"), en modo claro y oscuro.

@@ -1,0 +1,31 @@
+
+NOVEDADES v35
+- Metas de hoy (3 metas, +30 monedas).
+- Sonidos y vibracion (se apagan en Configuracion).
+- Atrapa insectos con combo y dificultad creciente; ruleta con premios ponderados.
+- Camaleon del reto de hoy mas grande; tarjetas de juegos mas limpias.
+- Pantalla de resultado con barra de nivel.
+- Emojis restantes reemplazados por iconos.
+
+NOVEDADES v36
+- Inicio sin tarjetas repetidas: el Reto sorpresa ahora es una de las Metas de hoy.
+
+DESPLIEGUE (Railway, sin Docker)
+- Sin Dockerfile: Railway detecta el pom.xml.
+- La URI de Mongo ya NO esta en el codigo: se lee de la variable MONGODB_URI.
+- Para correr en tu PC: copia application-local.properties.ejemplo a application-local.properties y pega tu URI.
+
+NOVEDADES v37
+- Animacion de entrada: el camaleon aparece con el nombre de la app y una barra de carga (toca para saltarla).
+- Barra inferior y botones de accion siempre fijos: ya no saltan al bajar ni al cambiar de pantalla.
+- Memoria: las cartas se tapan en el mismo lugar donde se mostraron (ya no se revuelven).
+- IA gratuita (Groq) que genera acertijos, preguntas de logica, "encuentra el diferente" y anagramas nuevos.
+  Las preguntas nuevas llevan la etiqueta "Nueva". Si la IA no esta configurada, la app sigue con sus preguntas propias.
+- Se quitó el inicio de sesión con Google y Facebook (no estaba configurado). Solo correo y contraseña.
+
+ACTIVAR LA IA (gratis, sin tarjeta)
+1. Entra a https://console.groq.com, crea una cuenta y en "API Keys" crea una clave.
+2. En Railway: tu servicio > Variables > agrega GROQ_API_KEY con esa clave y vuelve a desplegar.
+3. En tu PC: agrega groq.api.key=TU_CLAVE en application-local.properties.
+4. Opcional: GROQ_MODEL para cambiar el modelo (por defecto llama-3.3-70b-versatile).
+   Para probar: abre /api/ia/estado (debe decir "activa": true) y /api/ia/juegos/acertijos.
